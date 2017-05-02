@@ -5,14 +5,14 @@ clear all
 close all
 
 % Read in image
-I2 = im2double(rgb2gray(imread('../Images/Brain.jpg')));
+I1 = im2double(rgb2gray(imread('../Images/Brain.jpg')));
+I2 = imnoise(I1, 'gaussian', 0, 0.1);
 I = I2;
-
 % Setting Parameters
-K = 20;
+K = 30;
 prompt = 'Which variant do you want to run? ';
 variant = input(prompt)
-lambda = 0.01;
+lambda = 0.005;
 iter = 20;
 
 
@@ -43,7 +43,12 @@ for t = 1:iter
 end
 
 % Plotting
-subplot(1,2,1)
+subplot(1,3,1)
+imshow(I1)
+title('original')
+subplot(1,3,2)
 imshow(I2)
-subplot(1,2,2)
+title('noisy')
+subplot(1,3,3)
 imshow(I)
+title('smoothed')
